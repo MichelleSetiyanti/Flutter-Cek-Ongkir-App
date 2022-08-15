@@ -186,10 +186,27 @@ class HomeView extends GetView<HomeController> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Text("Kurir",
+            child: Text("Detail Lain",
                 style: TextStyle(
                   fontSize: 18,
                 )),
+          ),
+          TextField(
+            autocorrect: false,
+            controller: controller.berat,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              labelText: "Berat (gram)",
+              hintText: "Berat (gram)",
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 15,
+                horizontal: 15,
+              ),
+              border: OutlineInputBorder(),
+            ),
+          ),
+          SizedBox(
+            height: 20,
           ),
           DropdownSearch<Map<String, dynamic>>(
             items: [
@@ -222,18 +239,26 @@ class HomeView extends GetView<HomeController> {
                 title: Text("${item['name']}"),
               ),
             ),
+            onChanged: (value) =>
+                controller.codeKurir.value = value?["code"] ?? "",
             dropdownBuilder: (context, selectedItem) =>
                 Text("${selectedItem?['name'] ?? "Pilih Kurir"}"),
           ),
           SizedBox(
             height: 30,
           ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text("CEK ONGKOS KIRIM"),
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
-                padding: MaterialStateProperty.all(EdgeInsets.all(20))),
+          Obx(
+            () => ElevatedButton(
+              onPressed: () {
+                if (controller.isLaoding.isFalse) {
+                  controller.cekOngkir();
+                }
+              },
+              child: Text("CEK ONGKOS KIRIM"),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
+                  padding: MaterialStateProperty.all(EdgeInsets.all(20))),
+            ),
           ),
         ],
       ),
