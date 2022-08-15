@@ -254,7 +254,9 @@ class HomeView extends GetView<HomeController> {
                   controller.cekOngkir();
                 }
               },
-              child: Text("CEK ONGKOS KIRIM"),
+              child: Text(controller.isLaoding.isFalse
+                  ? "CEK ONGKOS KIRIM"
+                  : "Laoding..."),
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
                   padding: MaterialStateProperty.all(EdgeInsets.all(20))),
